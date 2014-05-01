@@ -1,0 +1,11 @@
+<h4>Ajouter</h4>
+<?php
+$form = $this->form;
+$form->prepare();
+ // inutile d'ouvrir les tags du formulaire puisqu'il ne sera posté côté serveur
+// echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('nom'));
+echo $this->formSubmit($form->get('submit'));
+//donc inutile de les fermer
+// echo $this->form()->closeTag(); 

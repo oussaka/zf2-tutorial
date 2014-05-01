@@ -1,0 +1,26 @@
+<h1>Lorem Elsass ipsum Choucroute</h1>
+<nav role="navigation">
+	<ul>
+		<li><a href="#">Salade</a></li>
+		<li><a href="#">Tomate</a></li>
+		<li><a href="#">Oignons</a></li>
+		<li><a href="#">Choucroute</a></li>
+		<li><a href="#">Picon bière</a></li>
+	</ul>
+</nav>
+<h2>Wotch a kofee avec ton BibalaekaesSalat et ta wurscht ?</h2>
+<p>Yeuh non che suis au réchime, je ne mange plus que des Grumbeere light et che fais de la chym avec Chulien. Tiens, un Picon sur le comptoir.</p>
+<h2>Et ta wurscht ?</h2>
+<p>Yeuh non che suis au réchime, je ne mange plus que des Grumbeere light et che fais de la chym avec Chulien. Tiens, un Picon sur le comptoir.</p>
+<p>Allez tchao bissame !</p>
+
+<?php $form = $this->form; ?>
+<?php $form->prepare(); ?>
+<?php echo $this->form()->openTag($form) ?>
+<?php echo $this->formElement($form->get('url')); ?>
+<?php echo $this->formElement($form->get('submit')); ?>
+<?php echo $this->formElementErrors($form->get('url')); ?>
+<?php echo $this->formElement($form->get('csrf')); ?>
+<?php echo $this->formElementErrors($form->get('csrf')); ?>
+
+<?php echo $this->form()->closeTag() ?>

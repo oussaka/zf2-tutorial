@@ -1,0 +1,83 @@
+<?php
+$title = 'Liste des Pages';
+$this->headTitle($title);
+$basePath = $this->basePath();
+$this->headLink()->appendStylesheet($basePath . '/css/ui-lightness/jquery-ui-1.10.3.custom.css');
+// $this->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js', 'text/javascript');
+// $this->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js', 'text/javascript');
+$this->headScript()->appendFile($basePath . '/js/jquery-1.8.3.min.js', 'text/javascript');
+$this->headScript()->appendFile($basePath . '/js/jquery-ui-1.10.3.custom.js', 'text/javascript');
+$this->headScript()->appendFile($basePath . '/js/can.jquery.js', 'text/javascript');
+$this->headScript()->appendFile($basePath . '/js/module/Cms/view/page/ajax.js', 'text/javascript');
+?>
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<!-- Zones d'insertion pour le controller PageController -->
+<div id="pages"></div>
+<!-- Zones d'insertion pour le controller CreatePageController-->
+<div id="createPageDialog" class="hide"></div>
+<!-- Zones d'insertion pour le controller EditPageController-->
+<div id="editPageDialog" class="hide"></div>
+<div><a id="createPageButton" class="button cancel ui-button ui-widget ui-state-default">Ajouter une page</a></div>
+ 
+ 
+<!-- MODELES DE VUES CAN JS-->
+ 
+<!-- VUE LISTE -->
+<script id="page_list_EJS" type="text/ejs">
+    <div class="page_list">
+        <table class="table">
+            <tr>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>&nbsp;</th>
+            </tr>
+            <% pages.each(function(page){ %>
+            <%== can.view.render('page_EJS', {page: page}) %>
+			<% }) %>
+        </table>
+    </div>
+</script>
+ 
+<!-- VUE ELEMENT DE LISTE -->
+<script id="page_EJS" type="text/ejs">
+    <tr id="page_<%= page.attr('id') %>" class="page" <%= (el)-> el.data('page', page) %>>
+        <td><a href="/page/view/<%= page.attr('id') %>"><%= page.attr('title') %></a></td>
+        <td><%= page.attr('content') %></td>
+        <td><a href="#" class="editPage">Modifier</a> <a href="#" class="deletePage">Supprimer</a></td>
+    </tr>
+</script>
+
+<!-- VUE FORMULAIRE -->
+<script id="page_form_EJS" type="text/ejs">
+    <form id="page_form_<%= page.attr('id') %>" class="page_form">
+        <input type="hidden" name="id" <%= page.attr('id') ? "value='" + page.id + "'" : "class='empty'" %> >
+        <label>Title</label>
+        <input type="text" name="title" <%= page.attr('title') ? "value='" + page.title + "'" : "class='empty'" %> >
+        <label>Content</label>
+        <textarea type="text" name="content" <%= page.attr('content') ? "" : "class='empty'" %> ><%= page.content %></textarea>
+    </form>
+</script>
+ 
+<!-- VUE FORMULAIRE EDITION-->
+<script id="page_edit_EJS" type="text/ejs">
+    <div class="page_edit">
+        <%== can.view.render('page_form_EJS', {page: page}) %>
+        <div class="buttons pull-right">
+            <a href="#" class="button save">Enregistrer</a>
+            <a href="#" class="button cancel">Annuler</a>
+        </div>
+    </div>
+</script>
+ 
+<!-- VUE FORMULAIRE CREATION-->
+<script id="page_create_EJS" type="text/ejs">
+    <div class="page_create">
+        <%== can.view.render('page_form_EJS', {page: page}) %>
+        <div class="buttons pull-right">
+            <a href="#" class="button save">Cr�er</a>
+            <a href="#" class="button cancel">Annuler</a>
+        </div>
+    </div>
+</script>

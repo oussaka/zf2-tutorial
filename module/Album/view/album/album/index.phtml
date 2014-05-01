@@ -1,10 +1,106 @@
-<?php 
+<style type="text/css">
+th        {background-color: #F9F9F9}
+tr.odd    {background-color: #EDF7F2}
+tr.even   {background-color: #FCFAE1}
+th, td    {padding: 0.1em 1em}
+</style>
+
+<?php
 $title = 'My albums';
 $this->headTitle($title);
+$this->placeholder('titleType')->set('PREPEND');
+
+echo $this->lesmessages(); //nom du helper
 ?>
+
+<div class="alert-success">
+    <?php echo "Message traduit : " . $this->translate('An error occurred'); ?>
+</div>
+<div class="alert-error">
+    <?php echo "Message traduit : " . $this->translate('You are here'); ?>
+    <br />
+    <?php echo $this->translatePlural('job in this category - page', 'jobs in this category - page', 4);?>
+</div>
+
 <h1><?php echo $this->escapeHtml($title); ?></h1>
-<p><a href="<?php echo $this->url('album', array( 
+<p><a href="<?php echo $this->url('album', array(
         'action'=>'add'));?>">Add new album</a></p>
+
+
+<script type="text/javascript">
+	function showcouleurs(){
+
+    	$.ajax({
+    	    url: 'ajaxexecution',
+    	    success:function(response){
+    	        $('#contenu').html(response);
+    	    },
+    		error: function(){
+    			// alert('Le nom de la couleur est déjà existante !');
+    		}
+    	});
+    }
+
+	function addcouleur(){
+		$.ajax({
+		    url: 'addcouleur',
+		    success: function(response){
+				$('#contenu').html(response);
+			}
+		});
+	}
+
+	function editcouleur(id){
+
+		$.ajax({
+		   url: 'editcouleur',
+		   type: "GET",
+		   data: 'id='+id,
+		   success: function( response ){
+				$('#contenu').html( response );
+		   }
+		});
+	}
+
+	function savecouleur(id){
+		   console.log(id);
+		$.ajax({
+		   url: 'ajaxexecution',
+		   type: "POST", // par defaut c'est post
+		   data: 'id='+$("#id").val()+'&nom='+$("#nom").val(),
+		   success: function( response ){
+				$('#contenu').html( response );
+		   },
+    	   error: function(){
+   		      alert('Le nom de la couleur est déjà existante !');
+    	   }
+		});
+	}
+
+	function deletecouleur(id){
+
+	    if(confirm('Voulez vous supprimer cette couleur ?'))
+		{
+			$.ajax({
+			   url: 'ajaxexecution',
+			   type: "GET",
+			   data: 'id='+id,
+			   success: function( response ){
+					$('#contenu').html( response );
+			   },
+			   error: function(){
+					alert('Impossible de supprimer cette couleur !');
+			   }
+			});
+		};
+	}
+
+
+
+
+	showcouleurs();
+</script>
+
 
 <table class="table">
 <tr>
@@ -12,16 +108,35 @@ $this->headTitle($title);
     <th>Artist</th>
     <th>&nbsp;</th>
 </tr>
-<?php foreach($albums as $album) : ?>
-<tr>
+<?php foreach($this->paginator as $album) : ?>
+<tr class="<?php echo $this->cycle(array("even", "odd"))->next();?>">
     <td><?php echo $this->escapeHtml($album->title);?></td>
     <td><?php echo $this->escapeHtml($album->artist);?></td>
     <td>
         <a href="<?php echo $this->url('album',
-            array('action'=>'edit', 'id' => $album->id));?>">Edit</a>
+            array('action'=>'edit', 'id' => $album->id));?>"><?php echo $this->translate("Edit"); ?></a>
         <a href="<?php echo $this->url('album',
-            array('action'=>'delete', 'id' => $album->id));?>">Delete</a>
+            array('action'=>'delete', 'id' => $album->id));?>"><?php echo $this->translate("Delete"); ?></a>
     </td>
 </tr>
 <?php endforeach; ?>
 </table>
+<?php
+if ($this->paginator instanceof Zend\Paginator\Paginator):
+ // add at the end of the file after the table
+ echo $this->paginationControl(
+     // the paginator object
+     $this->paginator,
+     // the scrolling style
+     'sliding',
+     // the partial to use to render the control
+     array('partial/paginator.phtml', 'Album'),
+     // the route to link to when a user clicks a control link
+     array(
+         'route' => 'album'
+     )
+ );
+endif;
+ ?>
+<div id="contenu"></div>
+

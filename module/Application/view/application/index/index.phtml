@@ -1,8 +1,38 @@
 <div class="hero-unit">
     <h1><?php echo sprintf($this->translate('Welcome to %sZend Framework 2%s'), '<span class="zf-green">', '</span>') ?></h1>
-    <p><?php echo sprintf($this->translate('Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication" target="_blank">', '</a>', \Zend\Version::VERSION) ?></p>
+    <p><?php echo sprintf($this->translate('Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication" target="_blank">', '</a>', \Zend\Version\Version::VERSION) ?></p>
     <p><a class="btn btn-success btn-large" href="https://github.com/zendframework/zf2" target="_blank"><?php echo $this->translate('Fork Zend Framework 2 on GitHub') ?> &raquo;</a></p>
 </div>
+<?php
+$params = array(
+    'before'  => '<div class="">',
+    'after' => '</div>'
+);
+
+echo $this->displayAvatar('anonymous.jpg', $params);
+
+// supposons que dans la config on ai : 'locale' => 'fr_FR',
+// (sinon une locale pour laquelle un catalogue se trouve dans module/Application/language )
+echo "Message traduit : " . $this->translate('An error occurred');
+// résultat : Message traduit : Une erreur est survenue
+
+// config : fr_FR
+echo "Message traduit : " . $this->translate('hello','application');
+// résultat : Message traduit : bonjour
+
+// supposons que dans la config on ai : 'locale' => 'fr_FR',
+echo "Traduction : " . $this->translate('An error occurred', null, 'es_ES'); // essayez par ex: ru_RU ou ar_SY
+// résultat : Traduction : Ha ocurrido un error
+
+//dans le cas où on veut utiliser un même domaine dans le reste du code :
+$this->plugin('translate')->setTranslatorTextDomain('application');
+// les appels suivant utiliseront le domaine de traduction 'commerce'
+echo $this->translate('reduction');
+echo "<hr />";
+echo $this->translate('home', null, 'fr_fR');
+echo "<hr />";
+
+?>
 
 <div class="row">
 

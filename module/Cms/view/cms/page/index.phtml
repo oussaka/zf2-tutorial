@@ -1,0 +1,26 @@
+<?php
+$title = 'Liste des Pages';
+$this->headTitle($title);
+?>
+<h1><?php  echo $this->escapeHtml($title)?></h1>
+ 
+<a href="<?php  echo $this->url('page', array('action'=>'add'))?>">Ajouter une page</a>
+<table class="table">
+    <tr>
+        <th>Titre</th>
+        <th>Contenu</th>
+        <th>&nbsp;</th>
+    </tr>
+    <?php foreach($pages as $page): ?>
+    <tr>
+        <td>
+            <a href="<?php  echo $this->url('page', array('action'=>'view', 'id' => $page->id))?>"><?php  echo $this->escapeHtml($page->title)?></a>
+        </td>
+        <td><?php  echo $this->escapeHtml($page->content)?></td>
+        <td>
+            <a href="<?php  echo $this->url('page', array('action'=>'edit', 'id' => $page->id))?>">Modifier</a>
+            <a href="<?php  echo $this->url('page', array('action'=>'delete', 'id' => $page->id))?>">Supprimer</a>
+        </td>
+    </tr>
+    <?php endforeach ?>
+</table>

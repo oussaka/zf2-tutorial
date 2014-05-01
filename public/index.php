@@ -1,4 +1,7 @@
 <?php
+// For ZendDeveloperTools
+define('REQUEST_MICROTIME', microtime(true));
+
 /**
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.
