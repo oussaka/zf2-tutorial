@@ -1,0 +1,37 @@
+<style type="text/css">
+th        {background-color: #F9F9F9}
+tr.odd    {background-color: #EDF7F2}
+tr.even   {background-color: #FCFAE1}
+th, td    {padding: 0.1em 1em}
+</style>
+
+<?php
+$title = 'My albums';
+$this->headTitle($title);
+$this->placeholder('titleType')->set('PREPEND');
+?>
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p><a href="<?php echo $this->url('album', array(
+        'action'=>'add'));?>">Add new album</a></p>
+
+
+<table class="table">
+<tr>
+    <th>Title</th>
+    <th>Artist</th>
+    <th>&nbsp;</th>
+</tr>
+<?php foreach($this->albums as $album) : ?>
+<tr class="<?php echo $this->cycle(array("even", "odd"))->next();?>">
+    <td><?php echo $this->escapeHtml($album->title);?></td>
+    <td><?php echo $this->escapeHtml($album->artist);?></td>
+    <td>
+        <a href="<?php echo $this->url('album',
+            array('action'=>'edit', 'id' => $album->id));?>"><?php echo $this->translate("Edit"); ?></a>
+        <a href="<?php echo $this->url('album',
+            array('action'=>'delete', 'id' => $album->id));?>"><?php echo $this->translate("Delete"); ?></a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>

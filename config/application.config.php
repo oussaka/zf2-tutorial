@@ -5,6 +5,7 @@ return array(
         'Album',
 //     	'AlbumRest',
         'Cms',
+        'CacheResultSet',
 //         'ZfrForum',
         // 'DoctrineModule',
         // 'DoctrineORMModule',

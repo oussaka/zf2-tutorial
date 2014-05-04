@@ -1,69 +1,58 @@
 <?php
 
-namespace Album\Model;
+namespace CacheResultSet\Model;
 
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Adapter\Adapter;
-use Zend\Db\ResultSet\ResultSet;
+// use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\ResultSet\HydratingResultSet;
+use Zend\Stdlib\Hydrator\ObjectProperty;
+use Zend\Stdlib\Hydrator;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Adapter\DbTableGateway;
-use Zend\Paginator\Paginator;
+use Zend\Cache\Storage\StorageInterface;
 
 
 class AlbumTable extends AbstractTableGateway
 {
 
     protected $table = 'albums';
+    protected $cache;
 
     public function __construct(Adapter $dbAdapter)
     {
         $this->adapter = $dbAdapter;
-        $this->resultSetPrototype = new ResultSet();
-        $this->resultSetPrototype->setArrayObjectPrototype(new Album());
-
-        $this->initialize();
-        /*
-         * trouver dans un blog, je ne comprends pas a quoi sert hydrator !!!
-         * $this->adapter = $adapter;
+        // $this->resultSetPrototype = new ResultSet();
         $this->resultSetPrototype = new HydratingResultSet();
-        $this->resultSetPrototype->setObjectPrototype(new Sample());
+        // $this->resultSetPrototype->setHydrator(new ObjectProperty());
+        $this->resultSetPrototype->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods);
+        // $this->resultSetPrototype->setArrayObjectPrototype(new Album());
+        $this->resultSetPrototype->setObjectPrototype(new Album());
 
         $this->initialize();
-         */
     }
 
-    public function fetchAll($paginated = false, $select = null)
+    public function setCache(StorageInterface $cache)
     {
-        /* if ($paginated) { // Zend\Paginator\Adapter\DbTableGateway; is availbale in ZF 2.2
-            // source : http://samsonasik.wordpress.com/2013/05/06/zend-framework-2-paginator-using-tablegateway-object/
-        	$dbTableGatewayAdapter = new DbTableGateway($this->tableGateway);
-        	$paginator = new Paginator($dbTableGatewayAdapter);
-            //Note : currently, you can pass $where and $order to DbTableGateway adapter after tableGateway parameter.
+    	$this->cache = $cache;
+    }
 
-        	return $paginator;
-        } */
-        if ($paginated) {
-        	// create a new Select object for the table album
-        	$select = new Select('albums');
-        	// create a new result set based on the Album entity
-        	$resultSetPrototype = new ResultSet();
-        	$resultSetPrototype->setArrayObjectPrototype(new Album());
-        	// create a new pagination adapter object
-        	$paginatorAdapter = new DbSelect(
-        			// our configured select object
-        			$select,
-        			// the adapter to run it against
-        			$this->getAdapter(),
-        			// the result set to hydrate
-        			$resultSetPrototype
-        	);
-        	$paginator = new Paginator($paginatorAdapter);
-        	return $paginator;
+
+    public function fetchAll()
+    {
+        if( ($resultSet = $this->cache->getItem('samplecache')) == FALSE) {
+
+        	$resultSet = $this->select(function (Select $select){
+        		$select->columns(array('id', 'title', 'artist'));
+        		$select->order(array('id asc'));
+        	});
+
+        	$resultSet = $resultSet->toArray();
+        	$this->cache->setItem('samplecache',  $resultSet);
         }
 
-        $resultSet = $this->select($select);
         return $resultSet;
     }
 

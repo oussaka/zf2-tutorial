@@ -8,8 +8,7 @@ use Album\Model\AlbumTable,
 	Album\Model\Couleurs,
 	Album\Model\CouleursTable,
 	Zend\Db\TableGateway\TableGateway,
-	Zend\Db\ResultSet\ResultSet,
-	Zend\Mvc\MvcEvent;
+	Zend\Db\ResultSet\ResultSet;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Application\ConfigAwareInterface;
 use Zend\ModuleManager\ModuleManager;
@@ -37,7 +36,7 @@ class Module implements DependencyIndicatorInterface
     	});
     }
 
-	public function onBootstrap(MvcEvent $event)
+	public function onBootstrap(\Zend\Mvc\MvcEvent $event)
 	{
 	    $application   = $event->getApplication();
 	    $sm            = $application->getServiceManager();
@@ -82,7 +81,7 @@ class Module implements DependencyIndicatorInterface
 		/*
 		 * le gestionnaire d’évènements que nous recevons dans la méthode onBootstrap est justement le gestionnaire d’évènements de la boucle MVC principale. Ce qui signifie que ce gestionnaire d’évènements connaît les évènements lancés par le framework. A ce titre, si vous souhaitez ajouter un listener aux évènements décrits dans la classe Zend\Mvc\MvcEvent, vous pouvez le faire sans passer par le gestionnaire d’évènements partagés :
 		 */
-		$eventManager->attach(MvcEvent::EVENT_ROUTE, function($e) {
+		$eventManager->attach(\Zend\Mvc\MvcEvent::EVENT_ROUTE, function($e) {
 			// var_dump($e);
 		}, 100);
 

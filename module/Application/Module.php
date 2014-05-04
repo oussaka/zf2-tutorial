@@ -53,7 +53,6 @@ class Module
         $translator ->setLocale($sessionContainer->mylocale)
                     ->setFallbackLocale('en_US');
 
-
         $serviceManager = $e->getApplication()->getServiceManager();
 
         $translator = $serviceManager->get('translator');

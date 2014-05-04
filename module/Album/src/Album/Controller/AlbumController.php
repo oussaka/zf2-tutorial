@@ -50,7 +50,6 @@ class AlbumController extends AbstractActionController implements ConfigAwareInt
         $loc->get('ViewHelperManager')
             ->get('headmeta')->appendName('description', $config['Test']['moduledesc']);
 
-
         echo "<p>EventManager Tutotorial</p>";
 
         $callback = function($e){
@@ -224,6 +223,7 @@ class AlbumController extends AbstractActionController implements ConfigAwareInt
         	// set the number of items per page to 10
         	$paginator->setItemCountPerPage(10);
     	}
+
     	return new ViewModel(array(
     			'paginator' => $paginator
     	));

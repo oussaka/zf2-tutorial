@@ -8,14 +8,13 @@ use Zend\Session\Config\SessionConfig;
 use Zend\Session\Container;
 use Application\Forms\LinkForm;
 
-
 class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $config = $this->getServiceLocator()->get("configuration");
 
-    	// var_dump($config['db']);
+        $config = $this->getServiceLocator()->get("configuration");
+        // var_dump($config['db']);
 
     	// simple use : generate only one paragraph (element p)
     	// echo \RtExtends\Useful\Data\Fake::getParagraphLoremIpsum();

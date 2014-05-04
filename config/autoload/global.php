@@ -33,6 +33,23 @@ return array(
 	'service_manager' => array(
         'factories' => array(
             'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
+            // Using Zend\Cache and HydratingResultSet to Save Database Resultset into Cache
+            /* 'Zend\Cache\Storage\Filesystem' => function($sm){
+            	$cache = \Zend\Cache\StorageFactory::factory(array(
+            			'adapter' => 'filesystem',
+            			'plugins' => array(
+            			        // Don't throw exceptions on cache errors
+            					'exception_handler' => array('throw_exceptions' => false),
+            					'serializer'
+            			)
+            	));
+
+            	$cache->setOptions(array(
+            			'cache_dir' => './data/cache'
+            	));
+
+            	return $cache;
+            }, */
         ),
     ),
 );
