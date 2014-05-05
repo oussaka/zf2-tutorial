@@ -44,7 +44,7 @@ class AlbumTable extends AbstractTableGateway
     {
         if( ($resultSet = $this->cache->getItem('samplecache')) == FALSE) {
 
-        	$resultSet = $this->select(function (Select $select){
+            $resultSet = $this->select(function (Select $select){
         		$select->columns(array('id', 'title', 'artist'));
         		$select->order(array('id asc'));
         	});

@@ -22,7 +22,9 @@ class AlbumController extends AbstractActionController
 
     public function indexAction()
     {
-        $albums = $this->getAlbumTable()->fetchAll();
+$albums = $this->getAlbumTable()->fetchAll();
+// FIXME: solution ne marche pas au bureau, Zend 2.2.7 version
+        var_dump($albums);
         // @todo: soltion à améliorer, utiliser les hydrators. http://framework.zend.com/manual/2.2/en/modules/zend.stdlib.hydrator.html
         $hydrator = new Hydrator\ArraySerializable();
         $oAlbums = null;

@@ -35,7 +35,6 @@ class AlbumController extends AbstractActionController implements ConfigAwareInt
 
     public function indexAction()
     {
-
         $this->headTitle("My website")->setSeparator(" - ")->append("easy ?!");
 
         // $this->getServiceLocator()->get('Configuration');

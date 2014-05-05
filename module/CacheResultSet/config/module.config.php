@@ -6,9 +6,9 @@ return array(
         ),
     ),
     'controller_plugins' => array(
-    		'invokables' => array(
-    				'Myplugin' => 'CacheResultSet\Controller\Plugin\Myplugin',
-    		)
+    	'invokables' => array(
+    			'Myplugin' => 'CacheResultSet\Controller\Plugin\Myplugin',
+    	)
     ),
     'router' => array(
         'routes' => array(
