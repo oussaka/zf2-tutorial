@@ -2,8 +2,13 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'ZendSkeletonModule\Controller\Skeleton' => 'ZendSkeletonModule\Controller\SkeletonController',
+            'CacheResultSet\Controller\Album' => 'CacheResultSet\Controller\AlbumController',
         ),
+    ),
+    'controller_plugins' => array(
+    		'invokables' => array(
+    				'Myplugin' => 'CacheResultSet\Controller\Plugin\Myplugin',
+    		)
     ),
     'router' => array(
         'routes' => array(
@@ -43,7 +48,7 @@ return array(
     ),
     'view_manager' => array(
         'template_path_stack' => array(
-            'ZendSkeletonModule' => __DIR__ . '/../view',
+            'cache-result-set' => __DIR__ . '/../view',
         ),
     ),
 );

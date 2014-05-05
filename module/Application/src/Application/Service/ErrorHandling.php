@@ -26,5 +26,6 @@ class ErrorHandling
         $log .= "nTrace:n" . $trace;
 
         $this->logger->err($log);
+        // there are functions for that : emerg(), alert(), err(), warn(),notice(), debug(), info(), see https://github.com/zendframework/zf2/blob/master/library/Zend/Log/Logger.php
     }
 }

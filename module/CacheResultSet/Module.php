@@ -10,9 +10,11 @@
 namespace CacheResultSet;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
+use Zend\Mvc\MvcEvent;
 
-class Module implements AutoloaderProviderInterface
+class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 {
     public function getAutoloaderConfig()
     {
@@ -34,15 +36,36 @@ class Module implements AutoloaderProviderInterface
         return include __DIR__ . '/config/module.config.php';
     }
 
-    public function onBootstrap($e)
+    public function onBootstrap(MvcEvent $e)
     {
         // You may not need to do this if you're doing it elsewhere in your
         // application
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+
+        $eventManager->attach('route', array($this, 'loadConfiguration'), 2);
     }
 
+    public function loadConfiguration(MvcEvent $e)
+    {
+    	$application   = $e->getApplication();
+    	$sm            = $application->getServiceManager();
+    	$sharedManager = $application->getEventManager()->getSharedManager();
+
+    	$router = $sm->get('router');
+    	$request = $sm->get('request');
+
+    	$matchedRoute = $router->match($request);
+    	if (null !== $matchedRoute) {
+    		$sharedManager->attach('Zend\Mvc\Controller\AbstractActionController','dispatch',
+    				function($e) use ($sm) {
+    					$sm->get('ControllerPluginManager')->get('Myplugin')
+    					->doAuthorization($e); //pass to the plugin...
+    				},2
+    		);
+    	}
+    }
 
     public function getServiceConfig()
     {

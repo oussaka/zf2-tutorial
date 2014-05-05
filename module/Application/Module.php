@@ -87,6 +87,18 @@ class Module
         		$service->logException($exception);
         	}
         });
+        // There’s two improvements
+        /* $application = $e->getTarget();
+        $eventManager = $application->getEventManager();
+        $services = $application->getServiceManager();
+        $eventManager->attach('dispatch.error', function ($event) use ($services) {
+        	$exception = $event->getResult()->exception;
+        	if (!$exception) {
+        		return;
+        	}
+        	$service = $services->get('Application\Service\ErrorHandling');
+        	$service->logException($exception);
+        }); */
 
 
             /* $event->attach('dispatch', function($e) {
