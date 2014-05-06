@@ -21,11 +21,38 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
     {
         // You may not need to do this if you're doing it elsewhere in your
         // application
+        /* @var $eventManager \Zend\EventManager\EventManager */
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
 
-        // $eventManager->attach('route', array($this, 'loadConfiguration'), 2);
+        $eventManager->attach('dispatch', array($this, 'loadConfigurationDispath' ));
+        $eventManager->attach('route', array($this, 'loadConfiguration'), 2);
+    }
+
+    /**
+     * Pour afficher le nom du module dans le layout
+     *
+     * @param MvcEvent $e
+     */
+    public function loadConfigurationDispath(MvcEvent $e)
+    {
+
+        $controller = $e->getTarget();
+        $controllerClass = get_class($controller);
+
+        $moduleNamespace = substr($controllerClass, 0, strpos($controllerClass, '\\'));
+
+        //set 'variable' into layout...
+        $controller->layout()->modulenamespace = $moduleNamespace;
+        // You can setting variable using this too : $e->getViewModel()->setVariable('modulenamespace', $moduleNamespace);
+
+        /*
+         And in the layout, You can call :
+         # Current Module Namespace is <?php echo $this->modulenamespace; ?>
+         How about call the variable for view, this is it :
+         # Current Module Namespace is <?php echo $this->layout()->modulenamespace; ?>
+        */
     }
 
     public function loadConfiguration(MvcEvent $e)
@@ -37,7 +64,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
     	$router = $sm->get('router');
     	$request = $sm->get('request');
 
-    	$matchedRoute = $router->match($request);
+    	/* $matchedRoute = $router->match($request);
     	if (null !== $matchedRoute) {
     		$sharedManager->attach('Zend\Mvc\Controller\AbstractActionController','dispatch',
     				function($e) use ($sm) {
@@ -45,7 +72,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
     					->doAuthorization($e); //pass to the plugin...
     				},2
     		);
-    	}
+    	} */
     }
 
     public function getServiceConfig()
@@ -80,7 +107,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
     			),
     	);
     }
-    
+
     public function getAutoloaderConfig()
     {
         return array(
@@ -95,7 +122,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
                 ),
         );
     }
-    
+
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';

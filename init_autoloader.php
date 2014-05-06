@@ -18,11 +18,20 @@ if (file_exists('vendor/autoload.php')) {
 if ($zf2Path = getenv('ZF2_PATH') ?: (is_dir('vendor/ZF2/library') ? 'vendor/ZF2/library' : false)) {
     if (isset($loader)) {
         $loader->add('Zend', $zf2Path . '/Zend');
+        // Using Zend Framework 1 libraries
+        //we still need set include path because some component still use require_once others
+        // $loader->setUseIncludePath($Zf1Path);
+        // $loader->add('Zend_', $Zf1Path.'/Zend');
     } else {
         include $zf2Path . '/Zend/Loader/AutoloaderFactory.php';
         Zend\Loader\AutoloaderFactory::factory(array(
             'Zend\Loader\StandardAutoloader' => array(
-                'autoregister_zf' => true
+                'autoregister_zf' => true,
+                // another way to use Zend 1
+                'prefixes' => array(
+                	// 'Zend_'     => $Zf1Path.'/Zend'
+                	// then use this in controller, for test : $date = new \Zend_Date; print_r($date->toArray());
+                ),
             )
         ));
     }
