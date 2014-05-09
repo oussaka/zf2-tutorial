@@ -12,6 +12,7 @@ return array(
         'ZendDeveloperTools',
         'BjyProfiler',
         'RtExtends',
+        'TestAjax',
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(

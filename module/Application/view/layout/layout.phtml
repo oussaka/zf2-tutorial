@@ -15,7 +15,7 @@
 
     <!-- Scripts -->
     <?php echo $this->headScript()->appendFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-                                  ->appendFile($this->basePath() . '/js/jquery-1.7.2.min.js') ?>
+                                  ->prependFile($this->basePath() . '/js/jquery-1.7.2.min.js') ?>
 
   </head>
 
@@ -37,6 +37,8 @@
               <li class="active"><a href="<?php echo $this->url('album') ?>"><?php echo $this->translate('Album') ?></a></li>
               <li class="active"><a href="<?php echo $this->url('page') ?>"><?php echo $this->translate('Cms (tuto)') ?></a></li>
               <li class="active"><a href="<?php echo $this->url('album-cache') ?>"><?php echo $this->translate('Cache ResultSet') ?></a></li>
+              <li class="active"><a href="<?php echo $this->url('TestAjax') ?>"><?php echo $this->translate('TestAjax') ?></a></li>
+              <li class="active"><a href="<?php echo $this->url('annotation-form') ?>"><?php echo $this->translate('Annotation-Form') ?></a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

@@ -1,0 +1,14 @@
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+        'annotation-form/default',
+        array(
+                'action'     => 'add',
+                'FormAnnotation' => 'student'
+        )
+));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formCollection($form);
+echo $this->form()->closeTag();

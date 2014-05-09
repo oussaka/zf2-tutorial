@@ -11,6 +11,7 @@ return array(
         'invokables' => array(
             'Album\Controller\Album' => 'Album\Controller\AlbumController',
             'Album\Controller\Couleurs' => 'Album\Controller\CouleursController',
+            'Album\Controller\FormAnnotation' => 'Album\Controller\FormAnnotationController',
         ),
         /*
          * abstract_factories : Unknown Services. In this case, if SM could not find controllers in invokables, the SM will turn to it whenever canCreateServiceWithName return true; ( controllers is service that called automatically by mvc stack )
@@ -86,6 +87,31 @@ return array(
 			                'action'     => 'addcouleur',
 			            ),
 			        ),
+			   	),
+			    'annotation-form' => array(
+			        'type'    => 'segment',
+			        'options' => array(
+			            'route'    => '/annotation-form',
+			            'defaults' => array(
+			                'controller' => 'Album\Controller\FormAnnotation',
+			                'action'     => 'add',
+			            ),
+			        ),
+			        'may_terminate' => true,
+			        'child_routes' => array(
+			            'default' => array(
+			                    'type'    => 'Segment',
+			                    'options' => array(
+			                            'route'    => '/[:controller[/:action]]',
+			                            'constraints' => array(
+			                                    'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+			                                    'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+			                            ),
+			                            'defaults' => array(
+			                            ),
+			                    ),
+			            ),
+			        )
 			   	),
         ),
     ),
