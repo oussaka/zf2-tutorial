@@ -12,7 +12,7 @@ class FormAnnotationController extends AbstractActionController
         $student    = new Student();
         $builder    = new AnnotationBuilder();
         $form       = $builder->createForm($student);
-         
+
         $request = $this->getRequest();
         if ($request->isPost()){
             $form->bind($student);
@@ -21,7 +21,7 @@ class FormAnnotationController extends AbstractActionController
                 print_r($form->getData());
             }
         }
-         
+
         return array('form'=>$form);
     }
 }

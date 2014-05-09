@@ -100,7 +100,7 @@ $.widget("ui.dialog", {
 				.attr('tabIndex', -1).css('outline', 0).keydown(function(event) {
 					if (options.closeOnEscape && !event.isDefaultPrevented() && event.keyCode &&
 						event.keyCode === $.ui.keyCode.ESCAPE) {
-						
+
 						self.close(event);
 						event.preventDefault();
 					}
@@ -202,7 +202,7 @@ $.widget("ui.dialog", {
 
 	destroy: function() {
 		var self = this;
-		
+
 		if (self.overlay) {
 			self.overlay.destroy();
 		}
@@ -228,7 +228,7 @@ $.widget("ui.dialog", {
 	close: function(event) {
 		var self = this,
 			maxZ, thisZ;
-		
+
 		if (false === self._trigger('beforeClose', event)) {
 			return;
 		}
@@ -521,7 +521,7 @@ $.widget("ui.dialog", {
 					at: myAt.join(" "),
 					offset: offset.join(" ")
 				};
-			} 
+			}
 
 			position = $.extend({}, $.ui.dialog.prototype.options.position, position);
 		} else {
@@ -549,7 +549,7 @@ $.widget("ui.dialog", {
 
 		$.each( options, function( key, value ) {
 			self._setOption( key, value );
-			
+
 			if ( key in sizeRelatedOptions ) {
 				resize = true;
 			}
@@ -601,7 +601,7 @@ $.widget("ui.dialog", {
 				if ( isDraggable && !value ) {
 					uiDialog.draggable( "destroy" );
 				}
-				
+
 				if ( !isDraggable && value ) {
 					self._makeDraggable();
 				}
@@ -663,7 +663,7 @@ $.widget("ui.dialog", {
 			})
 			.height();
 		minContentHeight = Math.max( 0, options.minHeight - nonContentHeight );
-		
+
 		if ( options.height === "auto" ) {
 			// only needed for IE6 support
 			if ( $.support.minHeight ) {
@@ -738,7 +738,7 @@ $.extend($.ui.dialog.overlay, {
 			$(document).bind('keydown.dialog-overlay', function(event) {
 				if (dialog.options.closeOnEscape && !event.isDefaultPrevented() && event.keyCode &&
 					event.keyCode === $.ui.keyCode.ESCAPE) {
-					
+
 					dialog.close(event);
 					event.preventDefault();
 				}
@@ -774,7 +774,7 @@ $.extend($.ui.dialog.overlay, {
 		}
 
 		$el.remove();
-		
+
 		// adjust the maxZ to allow other modal dialogs to continue to work (see #4309)
 		var maxZ = 0;
 		$.each(this.instances, function() {

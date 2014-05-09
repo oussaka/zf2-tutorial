@@ -324,7 +324,7 @@ $.widget( "ui.button", {
 				.text(),
 			icons = this.options.icons,
 			multipleIcons = icons.primary && icons.secondary,
-			buttonClasses = [];  
+			buttonClasses = [];
 
 		if ( icons.primary || icons.secondary ) {
 			if ( this.options.text ) {
@@ -361,7 +361,7 @@ $.widget( "ui.buttonset", {
 	_create: function() {
 		this.element.addClass( "ui-buttonset" );
 	},
-	
+
 	_init: function() {
 		this.refresh();
 	},
@@ -373,10 +373,10 @@ $.widget( "ui.buttonset", {
 
 		$.Widget.prototype._setOption.apply( this, arguments );
 	},
-	
+
 	refresh: function() {
 		var rtl = this.element.css( "direction" ) === "rtl";
-		
+
 		this.buttons = this.element.find( this.options.items )
 			.filter( ":ui-button" )
 				.button( "refresh" )

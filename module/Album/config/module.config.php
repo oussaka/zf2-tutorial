@@ -139,6 +139,7 @@ return array(
 	'service_manager' => array(
 		'invokables' => array(
 			// 'my-foo' => 'MyModule\Foo\Bar'
+		    'MySampleListener' => __NAMESPACE__.'\Event\MySampleListener',
 		),
 	    /*'abstract_factories' => array(
 	    		'Album\Service\CommonModelTableAbstractFactory',

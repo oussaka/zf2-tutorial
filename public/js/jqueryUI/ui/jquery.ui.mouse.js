@@ -102,7 +102,7 @@ $.widget("ui.mouse", {
 			.bind('mouseup.'+this.widgetName, this._mouseUpDelegate);
 
 		event.preventDefault();
-		
+
 		mouseHandled = true;
 		return true;
 	},

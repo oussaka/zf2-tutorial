@@ -39,7 +39,7 @@ return array(
                             ),
                         ),
                     ),
-                    
+
                 ),
             ),
         ),
@@ -49,7 +49,7 @@ return array(
             'TestAjax' => __DIR__ . '/../view',
         ),
     ),
-    
+
    /*
     * if you're using AssetManager module, you can save assets in your module's public
     * assetmanager module can be install by require "rwoverdijk/assetmanager": "*" in your composer.json
@@ -60,5 +60,5 @@ return array(
             ),
         ),
     ), */
-    
+
 );

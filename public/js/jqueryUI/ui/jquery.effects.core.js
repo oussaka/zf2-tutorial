@@ -185,7 +185,7 @@ function getElementStyles() {
 			}
 		}
 	}
-	
+
 	return newStyle;
 }
 
@@ -209,7 +209,7 @@ function filterStyles(styles) {
 			delete styles[name];
 		}
 	}
-	
+
 	return styles;
 }
 
@@ -386,7 +386,7 @@ $.extend($.effects, {
 		if ( element[ 0 ] === active || $.contains( element[ 0 ], active ) ) {
 			$( active ).focus();
 		}
-		
+
 		wrapper = element.parent(); //Hotfix for jQuery 1.4 since some change in wrap() seems to actually loose the reference to the wrapped element
 
 		// transfer positioning properties to the wrapper
@@ -413,7 +413,7 @@ $.extend($.effects, {
 	removeWrapper: function(element) {
 		var parent,
 			active = document.activeElement;
-		
+
 		if (element.parent().is('.ui-effects-wrapper')) {
 			parent = element.parent().replaceWith(element);
 			// Fixes #7595 - Elements lose focus when wrapped.
@@ -422,7 +422,7 @@ $.extend($.effects, {
 			}
 			return parent;
 		}
-			
+
 		return element;
 	},
 
@@ -476,12 +476,12 @@ function standardSpeed( speed ) {
 	if ( !speed || typeof speed === "number" || $.fx.speeds[ speed ] ) {
 		return true;
 	}
-	
+
 	// invalid strings - treat as "normal" speed
 	if ( typeof speed === "string" && !$.effects[ speed ] ) {
 		return true;
 	}
-	
+
 	return false;
 }
 
@@ -496,7 +496,7 @@ $.fn.extend({
 			},
 			mode = args2.options.mode,
 			effectMethod = $.effects[effect];
-		
+
 		if ( $.fx.off || !effectMethod ) {
 			// delegate to the original method (e.g., .show()) if possible
 			if ( mode ) {
@@ -509,7 +509,7 @@ $.fn.extend({
 				});
 			}
 		}
-		
+
 		return effectMethod.call(this, args2);
 	},
 

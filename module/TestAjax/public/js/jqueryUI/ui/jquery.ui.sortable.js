@@ -58,7 +58,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 
 		//Initialize mouse events for interaction
 		this._mouseInit();
-		
+
 		//We're ready to go
 		this.ready = true
 
@@ -79,7 +79,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 	_setOption: function(key, value){
 		if ( key === "disabled" ) {
 			this.options[ key ] = value;
-	
+
 			this.widget()
 				[ value ? "addClass" : "removeClass"]( "ui-sortable-disabled" );
 		} else {
@@ -168,7 +168,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 		// TODO: Still need to figure out a way to make relative sorting possible
 		this.helper.css("position", "absolute");
 		this.cssPosition = this.helper.css("position");
-		
+
 		//Generate the original position
 		this.originalPosition = this._generatePosition(event);
 		this.originalPageX = event.pageX;
@@ -529,7 +529,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 			? [options.connectWith]
 			: options.connectWith;
 	},
-	
+
 	_getItemsAsjQuery: function(connected) {
 
 		var self = this;
@@ -702,28 +702,28 @@ $.widget("ui.sortable", $.ui.mouse, {
 	},
 
 	_contactContainers: function(event) {
-		
-		// get innermost container that intersects with item 
-		var innermostContainer = null, innermostIndex = null;		
-		
-		
+
+		// get innermost container that intersects with item
+		var innermostContainer = null, innermostIndex = null;
+
+
 		for (var i = this.containers.length - 1; i >= 0; i--){
 
-			// never consider a container that's located within the item itself 
+			// never consider a container that's located within the item itself
 			if($.ui.contains(this.currentItem[0], this.containers[i].element[0]))
 				continue;
 
 			if(this._intersectsWith(this.containers[i].containerCache)) {
 
-				// if we've already found a container and it's more "inner" than this, then continue 
+				// if we've already found a container and it's more "inner" than this, then continue
 				if(innermostContainer && $.ui.contains(this.containers[i].element[0], innermostContainer.element[0]))
 					continue;
 
-				innermostContainer = this.containers[i]; 
+				innermostContainer = this.containers[i];
 				innermostIndex = i;
-					
+
 			} else {
-				// container doesn't intersect. trigger "out" event if necessary 
+				// container doesn't intersect. trigger "out" event if necessary
 				if(this.containers[i].containerCache.over) {
 					this.containers[i]._trigger("out", event, this._uiHash(this));
 					this.containers[i].containerCache.over = 0;
@@ -731,9 +731,9 @@ $.widget("ui.sortable", $.ui.mouse, {
 			}
 
 		}
-		
-		// if no intersecting containers found, return 
-		if(!innermostContainer) return; 
+
+		// if no intersecting containers found, return
+		if(!innermostContainer) return;
 
 		// move the item into the container if it's not there already
 		if(this.containers.length === 1) {
@@ -765,9 +765,9 @@ $.widget("ui.sortable", $.ui.mouse, {
 
 			this.containers[innermostIndex]._trigger("over", event, this._uiHash(this));
 			this.containers[innermostIndex].containerCache.over = 1;
-		} 
-	
-		
+		}
+
+
 	},
 
 	_createHelper: function(event) {

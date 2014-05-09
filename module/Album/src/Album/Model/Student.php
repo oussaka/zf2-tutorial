@@ -18,7 +18,7 @@ class Student
      * @Annotation\Options({"label":"Absent Id:"})
      */
     public $absentid;
-     
+
     /**
      * @Annotation\Type("Zend\Form\Element\Text")
      * @Annotation\Required({"required":"true" })
@@ -27,7 +27,7 @@ class Student
      * @Annotation\Options({"label":"Name:"})
      */
     public $name;
-     
+
     /**
      * @Annotation\Type("Zend\Form\Element\Radio")
      * @Annotation\Required({"required":"true" })
@@ -40,7 +40,7 @@ class Student
      * @Annotation\Attributes({"value":"1"})
      */
     public $gender;
-     
+
     /**
      * @Annotation\Type("Zend\Form\Element\Select")
      * @Annotation\Required({"required":"true" })
@@ -53,8 +53,8 @@ class Student
      * @Annotation\Attributes({"value":"0"})
      */
     public $class;
-     
-     
+
+
     /**
      * @Annotation\Type("Zend\Form\Element\Submit")
      * @Annotation\Attributes({"value":"Submit"})

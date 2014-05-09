@@ -35,10 +35,7 @@ class AlbumController extends AbstractActionController implements ConfigAwareInt
 
     public function indexAction()
     {
-        // @todo: je veux faire une
-        // TODO: azeaeaeaeaze
-        // TODO : azeaeaeaeaze
-        // TODO azeaeaeaeaze
+
         $this->headTitle("My website")->setSeparator(" - ")->append("easy ?!");
 
         // $this->getServiceLocator()->get('Configuration');
@@ -206,6 +203,13 @@ class AlbumController extends AbstractActionController implements ConfigAwareInt
 
     	// Lancement de l'évènement
     	$this->getEventManager()->trigger('sendTweet', null, array('content' => "content"));
+
+        // Best way attach this via Module::onBootstrap
+    	// $mysampleListener = $this->getServiceLocator()->get('MySampleListener');
+    	// $this->getEventManager()->attachAggregate($mysampleListener);
+
+    	$parameter = array('id' => 1);
+    	$this->getEventManager()->trigger('eventName', $this, $parameter);
 
     	//echo $simpleClass->getName();
     	// var_dump(class_exists("Version"));

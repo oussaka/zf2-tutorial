@@ -1,6 +1,6 @@
 <?php
 
-define('REQUEST_MICROTIME', microtime(true)); 
+define('REQUEST_MICROTIME', microtime(true));
 date_default_timezone_set('Asia/Jakarta');
 /**
  * This makes our life easier when dealing with paths. Everything is relative

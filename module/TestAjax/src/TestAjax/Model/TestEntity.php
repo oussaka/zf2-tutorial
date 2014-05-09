@@ -19,7 +19,7 @@ class TestEntity
      * @Annotation\Options({"label":"Input Your Name:"})
      */
     public $name;
-    
+
     /**
      * @Annotation\Type("Zend\Form\Element\Submit")
      * @Annotation\Attributes({"value":"Submit"})

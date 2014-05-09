@@ -87,6 +87,18 @@ class Module
         		$service->logException($exception);
         	}
         });
+        // ----------------------------------------------------------
+        $eventManager        = $e->getApplication()->getEventManager();
+        $sharedManager = $eventManager->getSharedManager();
+        $sm = $e->getApplication()->getServiceManager();
+            
+        $sharedManager->attach('Zend\Mvc\Controller\AbstractActionController',  'dispatch', function($e)
+                use ($sm) {
+            $controller = $e->getTarget();
+            $controller->getEventManager()->attachAggregate($sm->get('MySampleListener'));
+        }, 2);
+        // ----------------------------------------------------------
+         
         // There’s two improvements
         /* $application = $e->getTarget();
         $eventManager = $application->getEventManager();

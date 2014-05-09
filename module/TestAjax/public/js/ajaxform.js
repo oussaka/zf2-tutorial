@@ -12,7 +12,7 @@ $(function(){
         });
         $("#winpopup").load($(this).attr('href'));
         $("#winpopup").dialog("open");
-        
+
         return false;
     });
 });
