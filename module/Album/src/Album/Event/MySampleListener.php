@@ -26,7 +26,7 @@ class MySampleListener implements ListenerAggregateInterface
 
     public function doEvent(EventInterface $event)
     {
-        
-        echo "<br />" . $event->getName() . ' event is called with params: param id  = '.$event->getParam('id');
+
+        echo $event->getName() . ' event is called with params: param id  = '.$event->getParam('id');
     }
 }

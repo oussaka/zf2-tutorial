@@ -34,4 +34,21 @@ class Module implements AutoloaderProviderInterface
         return include __DIR__ . '/config/module.config.php';
     }
 
+    public function onBootstrap(\Zend\Mvc\MvcEvent $e)
+    {
+
+        // $events = new EventManager; and add use Zend\EventManager\EventManager;
+        $events = $e->getApplication()->getEventManager();
+        $events->attach('*', function($e) {
+            $event  = $e->getName();
+            $params = $e->getParams();
+        echo "<br />";
+            printf(
+                'Handled event "%s" with parameter "%s"',
+                $event,
+                json_encode($params)
+            );
+        });
+        
+    }
 }

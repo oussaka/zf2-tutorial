@@ -18,6 +18,14 @@ class SkeletonController extends AbstractActionController
 {
     public function indexAction()
     {
+       
+        $events = $this->getEventManager();
+        
+        $params = array('foo' => 'bar','baz' => 'bat');
+        $events->trigger('do', null, $params); //event, target, parameter
+        //print : Handled event "do" with parameter "{"foo":"bar","baz":"bat"}"
+        
+            
         return array();
     }
 
