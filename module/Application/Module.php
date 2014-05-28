@@ -88,6 +88,7 @@ class Module
         	}
         });
         // ----------------------------------------------------------
+        /* @var $eventManager \Zend\EventManager\EventManager */
         $eventManager        = $e->getApplication()->getEventManager();
         $sharedManager = $eventManager->getSharedManager();
         $sm = $e->getApplication()->getServiceManager();
@@ -148,6 +149,20 @@ class Module
                 var_dump($e);
             }, 100);
             */
+
+            /* ------------------------------------------------------ */
+            // ZFCA
+            $eventManager->attach('foo', function ($e){ echo "0"; });
+            $eventManager->attach('foo', function ($e){ echo "1"; });
+            $eventManager->attach('foo', function ($e){ echo "2"; });
+            $eventManager->attach('foo', function ($e){ echo "3"; });
+
+            // $eventManager->trigger("foo");
+            $eventManager->triggerUntil("foo", null, array(), function($e){
+            	return true; // 0
+            	// return false ; // 0123
+            });
+
     }
 
     public function onPreRoute($e)
